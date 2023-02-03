@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToDo List</title>
 </head>
+
 <body>
-  
+  <div id="app-window">
+    <div class="sidebar">
+      <div class="logo"></div>
+      <div class="projects">
+        <div class="project">
+          <div class="project-icon">✅</div>
+          <div class="project-title">General</div>
+          <div class="todo-count">2</div>
+        </div>
+        <div class="project">
+          <div class="project-icon">🛍️</div>
+          <div class="project-title">Shopping</div>
+          <div class="todo-count">3</div>
+        </div>
+        <div class="project">
+          <div class="project-icon">✈️</div>
+          <div class="project-title">Vacation</div>
+          <div class="todo-count">4</div>
+        </div>
+        <div class="new-project">
+          <button class="new-project-btn" type="button">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <div class="project-icon">✅</div>
+        <div class="project-title">General</div>
+      </div>
+      <div class="todo-list">
+        <div class="todo">
+          <button type="button" class="todo-done-btn">Done</button>
+          <div class="todo-title">Laundry</div>
+          <div class="todo-date">24.02.23</div>
+          <button type="button" class="todo-edit-btn">Edit</button>
+          <button type="button" class="todo-delete-btn">Delete</button>
+        </div>
+        <div class="todo">
+          <button type="button" class="todo-done-btn">Done</button>
+          <div class="todo-title">Garbage</div>
+          <div class="todo-date">12.02.23</div>
+          <button type="button" class="todo-edit-btn">Edit</button>
+          <button type="button" class="todo-delete-btn">Delete</button>
+        </div>
+        <div class="new-todo">
+          <div class="todo-done-btn">+</div>
+          <input type="text" name="todo-title" id="todo-title" placeholder="What to do?">
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
