@@ -1,9 +1,46 @@
 @import url(./fonts.css);
 
+:root {
+  --main-color: #46caa3;
+  --bg-color: #f1fffb;
+}
+
 * {
+  font-family: "Manrope", sans-serif;
+  box-sizing: content-box;
   margin: 0;
   padding: 0;
-  font-family: 'Manrope', sans-serif;
+}
+
+/* Font Sizes */
+
+.project-title {
+  font-size: 20px;
+}
+
+.header > .project-title {
+  font-size: 32px;
+}
+
+.todo-count {
+  font-size: 16px;
+}
+
+.todo-title,
+.todo-date {
+  font-size: 16px;
+}
+
+.new-todo > input {
+  font-size: inherit;
+}
+
+/* Layout */
+
+html,
+body,
+#app-window {
+  height: 100%;
 }
 
 #app-window,
@@ -28,8 +65,17 @@
   grid-template-rows: 60px 1fr;
 }
 
-#logo,
-.header > :first-child {
+.sidebar {
+  background-color: var(--bg-color);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.logo-section,
+.header {
+  background-color: var(--main-color);
+}
+
+#logo {
   padding: 10px;
 }
 
@@ -43,16 +89,24 @@
 .new-project {
   align-items: center;
   grid-template-columns: auto 1fr auto;
-  height: 40px;
+  column-gap: 10px;
+  padding: 0 10px 0 10px;
+  height: 50px;
+}
+
+.project-icon {
+  padding: 8px;
 }
 
 .header {
   align-items: center;
   grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  font-weight: bold;
 }
 
 .todo-list {
-  align-items: center;
+  /* align-items: center; */
   grid-auto-rows: 60px;
   padding: 10px;
 }
@@ -65,9 +119,102 @@
   grid-template-columns: auto 1fr;
 }
 
-button {
+.todo,
+.new-todo {
+  align-items: center;
+  column-gap: 10px;
+  padding: 5px;
+}
+
+.date {
+  padding: 5px;
+}
+
+.new-todo > input {
+  align-self: stretch;
+}
+
+.todo-edit-btn,
+.todo-delete-btn {
+  padding: 5px;
+}
+
+/* Appearance */
+
+.project,
+.new-project {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.project.selected {
+  border: 2px solid var(--main-color);
+}
+
+.new-project {
+  border: 1px dashed rgba(0, 0, 0, 0.4);
+  opacity: 0.75;
+}
+
+.project-icon {
+  border-radius: 50%;
+  background-color: #f35f4c;
+}
+
+.project:nth-child(2) > .project-icon {
+  background-color: #4c94f3;
+}
+
+.project:nth-child(3) > .project-icon {
+  background-color: #f3ab4c;
+}
+
+.todo,
+.new-todo {
+  border-bottom: 1px solid rgba(150, 150, 150, 0.5);
+  transition: background-color 0.2s ease;
+}
+
+.date {
+  display: inline;
+  color: #3d3d3d;
+  background-color: #ddd;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+button,
+input {
   appearance: none;
   outline: none;
   border: none;
-  background: none;  
+  background: none;
+}
+
+.todo-edit-btn,
+.todo-delete-btn {
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.project:hover,
+.new-project:hover,
+.todo:hover,
+.new-todo:hover,
+.new-todo > input:hover {
+  background-color: #e4e3e3;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.new-todo > input:focus {
+  cursor: text;
+}
+
+.todo-edit-btn:hover,
+.todo-delete-btn:hover {
+  background-color: var(--main-color);
+  cursor: pointer;
 }
