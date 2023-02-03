@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app-window,
+.sidebar,
+.main-content,
+.projects,
+.project,
+.new-project,
+.header,
+.todo-list,
+.todo,
+.new-todo {
+  display: grid;
+}
+
+#app-window {
+  grid-template-columns: 300px 1fr;
+}
+
+.sidebar,
+.main-content {
+  grid-template-rows: 60px 1fr;
+}
+
+#logo,
+.header > :first-child {
+  padding: 10px;
+}
+
+.projects {
+  align-items: center;
+  grid-auto-rows: 60px;
+  padding: 10px;
+}
+
+.project,
+.new-project {
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  height: 40px;
+}
+
+.header {
+  align-items: center;
+  grid-template-columns: auto 1fr;
+}
+
+.todo-list {
+  align-items: center;
+  grid-auto-rows: 60px;
+  padding: 10px;
+}
+
+.todo {
+  grid-template-columns: auto auto 1fr auto auto;
+}
+
+.new-todo {
+  grid-template-columns: auto 1fr;
+}
