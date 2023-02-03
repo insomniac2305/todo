@@ -1,6 +1,9 @@
+@import url(./fonts.css);
+
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Manrope', sans-serif;
 }
 
 #app-window,
@@ -60,4 +63,11 @@
 
 .new-todo {
   grid-template-columns: auto 1fr;
+}
+
+button {
+  appearance: none;
+  outline: none;
+  border: none;
+  background: none;  
 }
