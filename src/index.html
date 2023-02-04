@@ -36,12 +36,12 @@
     </div>
     <div class="main-content">
       <div class="header">
-        <!-- <div class="project-icon"><span class="material-symbols-rounded">list</span></div> -->
         <div class="project-title">General</div>
       </div>
       <div class="todo-list">
         <div class="todo">
-          <button type="button" class="todo-done-btn"><span class="material-symbols-rounded no-fill">circle</span></button>
+          <button type="button" class="todo-done-btn"><span
+              class="material-symbols-rounded no-fill">circle</span></button>
           <div class="todo-title">Laundry</div>
           <div class="todo-date">
             <div class="date">24.02.23</div>
@@ -50,7 +50,8 @@
           <button type="button" class="todo-delete-btn"><span class="material-symbols-rounded">delete</span></button>
         </div>
         <div class="todo">
-          <button type="button" class="todo-done-btn"><span class="material-symbols-rounded no-fill">circle</span></button>
+          <button type="button" class="todo-done-btn"><span
+              class="material-symbols-rounded no-fill">circle</span></button>
           <div class="todo-title">Garbage</div>
           <div class="todo-date">
             <div class="date">12.02.23</div>
@@ -62,6 +63,26 @@
           <div class="todo-done-btn"><span class="material-symbols-rounded">add</span></div>
           <input type="text" name="todo-title" id="todo-title" placeholder="What to do?">
         </div>
+      </div>
+    </div>
+    <div class="edit-area">
+      <div class="header"></div>
+      <div class="edit-todo">
+        <form action="." id="edit-todo">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text">
+          <label for="due">Due Date</label>
+          <input id="due" name="due" type="datetime-local">
+          <label for="prio">Priority</label>
+          <select id="prio" name="prio">
+            <option value="low">Low</option>
+            <option value="med">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <label for="desc">Description</label>
+          <textarea id="desc" name="desc"></textarea>
+          <button type="submit">Save changes</button>
+        </form>
       </div>
     </div>
   </div>
