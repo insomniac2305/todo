@@ -1,11 +1,7 @@
-let uniqueID = 0;
-const getUniqueID = () => {
-  uniqueID += 1;
-  return uniqueID;
-};
+import IdGenerator from "./idGenerator";
 
 export default (title, description, dueDate, priority) => {
-  const id = getUniqueID();
+  const id = IdGenerator.getUniqueID("todo");
   let done = false;
 
   const getID = () => id;

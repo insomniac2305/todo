@@ -1,12 +1,17 @@
+import IdGenerator from "./idGenerator";
+
 export default (name, icon) => {
+  const id = IdGenerator.getUniqueID("project");
   const toDoList = [];
+
+  const getID = () => id;
 
   const addToDo = (toDo) => {
     toDoList.push(toDo);
   };
 
-  const removeToDo = (id) => {
-    const index = toDoList.findIndex(todo => todo.getID() === id);
+  const removeToDo = (todoId) => {
+    const index = toDoList.findIndex(todo => todo.getID() === todoId);
     if (index > -1) {
       toDoList.splice(index, 1);
     }
@@ -14,5 +19,5 @@ export default (name, icon) => {
 
   const getToDoList = () => toDoList;
 
-  return { name, icon, addToDo, removeToDo, getToDoList };
+  return { name, icon, getID, addToDo, removeToDo, getToDoList };
 };
