@@ -14,7 +14,7 @@ const myToDo2 = ToDo("Garbage", "Take out paper", new Date("2023-02-12"), "med")
 project.addToDo(myToDo);
 project.addToDo(myToDo2);
 
-
 Display.addProject(project.getID(), project.title, project.icon, "#aaa", "5");
 Display.addTodo(myToDo.title, myToDo.dueDate, myToDo.priority, false);
 Display.selectProject(project.getID(), project.title);
+Display.editTodo(myToDo2.title, "2023-02-12T00:00:00.000", myToDo2.priority, myToDo2.description);
