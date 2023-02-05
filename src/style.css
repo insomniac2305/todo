@@ -115,6 +115,10 @@ body,
   padding: 8px;
 }
 
+.todo-count {
+  padding: 3px;
+}
+
 .header {
   align-items: center;
   grid-template-columns: auto 1fr;
@@ -213,6 +217,13 @@ form#edit-todo>textarea:focus {
 
 .project:nth-child(3) > .project-icon {
   background-color: #f3ab4c;
+}
+
+.todo-count {
+  background-color: #ddd;
+  columns: #3d3d3d;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .todo,
