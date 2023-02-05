@@ -1,6 +1,6 @@
 import IdGenerator from "./idGenerator";
 
-export default (name, icon) => {
+export default (title, icon) => {
   const id = IdGenerator.getUniqueID("project");
   const toDoList = [];
 
@@ -19,5 +19,5 @@ export default (name, icon) => {
 
   const getToDoList = () => toDoList;
 
-  return { name, icon, getID, addToDo, removeToDo, getToDoList };
+  return { title, icon, getID, addToDo, removeToDo, getToDoList };
 };

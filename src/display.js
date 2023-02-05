@@ -1,7 +1,7 @@
 export default (() => {
   const projectsNode = document.querySelector(".projects");
   const newProjectNode = document.querySelector(".new-project");
-  // const projectTitleHeaderNode = document.querySelector(".header>.project-title");
+  const projectTitleHeaderNode = document.querySelector(".header>.project-title");
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
   // const editTodoFormNode = document.querySelector("#edit-todo");
@@ -38,15 +38,16 @@ export default (() => {
     return element;
   };
 
-  const addProjectDisplay = (projectTitle, projectIcon, projectColor, todoCount) => {
+  const addProject = (id, title, icon, color, todoCount) => {
     const projectNode = createElemWithParam("div", "project");
+    projectNode.dataset.id = id;
     const projectIconWrap = createElemWithParam("div", "project-icon");
-    projectIconWrap.style.backgroundColor = projectColor;
-    const projectIconNode = createElemWithParam("span", "material-symbols-rounded", projectIcon);
+    projectIconWrap.style.backgroundColor = color;
+    const projectIconNode = createElemWithParam("span", "material-symbols-rounded", icon);
     projectIconWrap.appendChild(projectIconNode);
     projectNode.appendChild(projectIconWrap);
 
-    const projectTitleNode = createElemWithParam("div", "project-title", projectTitle);
+    const projectTitleNode = createElemWithParam("div", "project-title", title);
     projectNode.appendChild(projectTitleNode);
 
     const todoCountNode = createElemWithParam("div", "todo-count", todoCount);
@@ -55,7 +56,7 @@ export default (() => {
     projectsNode.insertBefore(projectNode, newProjectNode);
   };
 
-  const addTodoDisplay = (todoTitle, dueDate, priority, done) => {
+  const addTodo = (todoTitle, dueDate, priority, done) => {
     const todoNode = createElemWithParam("div", "todo");
     done && todoNode.classList.add("done");
     const todoDoneBtn = createElemWithParam("button", "todo-done-btn");
@@ -91,5 +92,14 @@ export default (() => {
     todoListNode.insertBefore(todoNode, newTodoNode);
   };
 
-  return { addProjectDisplay, addTodoDisplay };
+  const selectProject = (id, title) => {
+    const curSelectedProjectNode = document.querySelector(".project.selected");
+    curSelectedProjectNode.classList.remove("selected");
+    const newSelectedProjectNode = document.querySelector(`.project[data-id="${id}"]`);
+    newSelectedProjectNode.classList.add("selected");
+
+    projectTitleHeaderNode.innerText = title;
+  }
+
+  return { addProject, addTodo, selectProject };
 })();
