@@ -1,14 +1,15 @@
 export default (() => {
+  const appWindowNode = document.getElementById("app-window");
   const projectsNode = document.querySelector(".projects");
   const newProjectNode = document.querySelector(".new-project");
   const projectTitleHeaderNode = document.querySelector(".header>.project-title");
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
   // const editTodoFormNode = document.querySelector("#edit-todo");
-  // const editTodoTitleNode = document.querySelector("#title");
-  // const editTodoDueDateNode = document.querySelector("#due");
-  // const selectTodoPrioNode = document.querySelector("#prio");
-  // const editTodoDescNode = document.querySelector("#desc");
+  const editTodoTitleNode = document.querySelector("#title");
+  const editTodoDueDateNode = document.querySelector("#due");
+  const selectTodoPrioNode = document.querySelector("#prio");
+  const editTodoDescNode = document.querySelector("#desc");
 
   const PRIORITIES = {
     low: {
@@ -56,7 +57,7 @@ export default (() => {
     projectsNode.insertBefore(projectNode, newProjectNode);
   };
 
-  const addTodo = (todoTitle, dueDate, priority, done) => {
+  const addTodo = (title, dueDate, priority, done) => {
     const todoNode = createElemWithParam("div", "todo");
     done && todoNode.classList.add("done");
     const todoDoneBtn = createElemWithParam("button", "todo-done-btn");
@@ -65,7 +66,7 @@ export default (() => {
     todoDoneBtn.appendChild(todoDoneIcon);
     todoNode.appendChild(todoDoneBtn);
 
-    const todoTitleNode = createElemWithParam("div", "todo-title", todoTitle);
+    const todoTitleNode = createElemWithParam("div", "todo-title", title);
     todoNode.appendChild(todoTitleNode);
 
     const todoDateWrap = createElemWithParam("div", "todo-date");
@@ -99,7 +100,17 @@ export default (() => {
     newSelectedProjectNode.classList.add("selected");
 
     projectTitleHeaderNode.innerText = title;
-  }
+  };
 
-  return { addProject, addTodo, selectProject };
+  const toggleEditMode = () => appWindowNode.classList.toggle("edit-active");
+
+  const editTodo = (title, dueDate, priority, desc) => {
+    toggleEditMode();
+    editTodoTitleNode.value = title;
+    editTodoDueDateNode.value = dueDate;
+    selectTodoPrioNode.value = priority;
+    editTodoDescNode.value = desc;
+  };
+
+  return { addProject, addTodo, selectProject, editTodo };
 })();
