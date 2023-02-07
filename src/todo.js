@@ -1,14 +1,9 @@
 import IdGenerator from "./idGenerator";
 
-export default (title, description, dueDate, priority) => {
+export default (title, description, dueDate, priority, done = false) => {
   const id = IdGenerator.getUniqueID("todo");
-  let done = false;
-
   const getID = () => id;
-  const getDone = () => done;
-  const toggleDone = () => {
-    done = !done;
-  };
+  
 
-  return { title, description, dueDate, priority, getID, getDone, toggleDone };
+  return { title, description, dueDate, priority, done, getID };
 };

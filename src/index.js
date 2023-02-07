@@ -1,20 +1,17 @@
 import "./style.css";
 import Logo from "./assets/logo.svg";
-import Project from "./project";
-import ToDo from "./todo";
-import Display from "./display";
+import Controller from "./controller";
 
 const imgLogo = document.getElementById("logo");
 imgLogo.src = Logo;
 
-const project = Project("Default", "checklist");
-const myToDo = ToDo("Laundry", "White and color", new Date("2023-02-24"), "high");
-const myToDo2 = ToDo("Garbage", "Take out paper", new Date("2023-02-12"), "med");
-
-project.addToDo(myToDo);
-project.addToDo(myToDo2);
-
-Display.addProject(project.getID(), project.title, project.icon, "#aaa", "5");
-Display.addTodo(myToDo.title, myToDo.dueDate, myToDo.priority, false);
-Display.selectProject(project.getID(), project.title);
-Display.editTodo(myToDo2.title, "2023-02-12T00:00:00.000", myToDo2.priority, myToDo2.description);
+Controller.addProject("Default", "checklist", "#aaa");
+Controller.selectProject(1);
+Controller.addTodo(1, "Taxes", "Including crypto this year", new Date("2023-06-01"), "med");
+Controller.addTodo(1, "MFA Security", "Add MFA to Home Assistant", new Date("2023-02-22"), "low");
+Controller.addTodo(1, "Garbage", "Take out paper", new Date("2023-02-10"), "high");
+Controller.startEditTodo(1, 3);
+Controller.finishEditTodo(1, 3, "Take out trash", "Paper and Plastics", new Date("2023-02-13"), "med");
+Controller.removeTodo(1, 3);
+Controller.toggleTodoDone(1, 2);
+Controller.removeProject(1);
