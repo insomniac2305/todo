@@ -57,9 +57,10 @@ export default (() => {
     projectsNode.insertBefore(projectNode, newProjectNode);
   };
 
-  const addTodo = (title, dueDate, priority, done) => {
+  const addTodo = (id, title, dueDate, priority, done) => {
     const todoNode = createElemWithParam("div", "todo");
     done && todoNode.classList.add("done");
+    todoNode.dataset.id = id;
     const todoDoneBtn = createElemWithParam("button", "todo-done-btn");
     const todoDoneIcon = createElemWithParam("span", "material-symbols-rounded");
     todoDoneIcon.classList.add("no-fill");
