@@ -38,7 +38,7 @@ export default (() => {
     return element;
   };
 
-  const addProject = (id, title, icon, color, todoCount) => {
+  const addProject = (id, title, icon, color, todoCount, insertPosition = newProjectNode) => {
     const projectNode = createElemWithParam("div", "project");
     projectNode.dataset.id = id;
     const projectIconWrap = createElemWithParam("div", "project-icon");
@@ -53,8 +53,20 @@ export default (() => {
     const todoCountNode = createElemWithParam("div", "todo-count", todoCount);
     projectNode.appendChild(todoCountNode);
 
-    projectsNode.insertBefore(projectNode, newProjectNode);
+    projectsNode.insertBefore(projectNode, insertPosition);
   };
+  
+  const removeProject = (id) => {
+    const projectToBeRemoved = document.querySelector(`.project[data-id="${id}"]`);
+    projectToBeRemoved.remove();
+  };
+
+  const updateProject = (id, title, icon, color, todoCount) => {
+    const siblingNode = document.querySelector(`.project[data-id="${id}"]`).nextElementSibling ?? newProjectNode;
+    removeProject(id);
+    addProject(id, title, icon, color, todoCount, siblingNode);
+  };
+
 
   const selectProject = (id, title) => {
     const curSelectedProjectNode = document.querySelector(".project.selected");
@@ -124,5 +136,5 @@ export default (() => {
     editTodoDescNode.value = desc;
   };
 
-  return { addProject, selectProject, addTodo, removeTodo, updateTodo, editTodo };
+  return { addProject, removeProject, updateProject, selectProject, addTodo, removeTodo, updateTodo, editTodo };
 })();
