@@ -57,7 +57,7 @@ export default (() => {
     projectsNode.insertBefore(projectNode, newProjectNode);
   };
 
-  const addTodo = (id, title, dueDate, priority, done) => {
+  const addTodo = (id, title, dueDate, priority, done, insertPosition = newTodoNode) => {
     const todoNode = createElemWithParam("div", "todo");
     done && todoNode.classList.add("done");
     todoNode.dataset.id = id;
@@ -91,7 +91,18 @@ export default (() => {
     todoDeleteBtn.appendChild(todoDeleteIconNode);
     todoNode.appendChild(todoDeleteBtn);
 
-    todoListNode.insertBefore(todoNode, newTodoNode);
+    todoListNode.insertBefore(todoNode, insertPosition);
+  };
+
+  const removeTodo = (id) => {
+    const todoToBeRemoved = document.querySelector(`.todo[data-id="${id}"]`);
+    todoToBeRemoved.remove();
+  };
+
+  const updateTodo = (id, title, dueDate, priority, done) => {
+    const siblingNode = document.querySelector(`.todo[data-id="${id}"]`).nextElementSibling ?? newTodoNode;
+    removeTodo(id);
+    addTodo(id, title, dueDate, priority, done, siblingNode);
   };
 
   const selectProject = (id, title) => {
@@ -108,10 +119,11 @@ export default (() => {
   const editTodo = (title, dueDate, priority, desc) => {
     toggleEditMode();
     editTodoTitleNode.value = title;
-    editTodoDueDateNode.value = dueDate;
+    const dateValue = dueDate.toISOString().slice(0,-1);
+    editTodoDueDateNode.value = dateValue;
     selectTodoPrioNode.value = priority;
     editTodoDescNode.value = desc;
   };
 
-  return { addProject, addTodo, selectProject, editTodo };
+  return { addProject, addTodo, removeTodo, updateTodo, selectProject, editTodo };
 })();
