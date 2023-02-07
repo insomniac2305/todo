@@ -5,6 +5,7 @@ export default (() => {
   const projectTitleHeaderNode = document.querySelector(".header>.project-title");
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
+  const editTodoFormNode = document.querySelector("#edit-todo");
   const editTodoTitleNode = document.querySelector("#title");
   const editTodoDueDateNode = document.querySelector("#due");
   const selectTodoPrioNode = document.querySelector("#prio");
@@ -17,7 +18,7 @@ export default (() => {
     },
     med: {
       class: "prio-med",
-      icon: "drag-handle",
+      icon: "drag_handle",
     },
     high: {
       class: "prio-high",
@@ -55,7 +56,7 @@ export default (() => {
 
     projectsNode.insertBefore(projectNode, insertPosition);
   };
-  
+
   const removeProject = (id) => {
     const projectToBeRemoved = document.querySelector(`.project[data-id="${id}"]`);
     projectToBeRemoved.remove();
@@ -67,14 +68,22 @@ export default (() => {
     addProject(id, title, icon, color, todoCount, siblingNode);
   };
 
+  const updateProjectTodoCount = (id, count) => {
+    const countNode = document.querySelector(`.project[data-id="${id}"]>.todo-count`);
+    countNode.innerText = count;
+  };
+
+  const setTitle = (title) => {
+    projectTitleHeaderNode.innerText = title;
+  };
 
   const selectProject = (id, title) => {
     const curSelectedProjectNode = document.querySelector(".project.selected");
-    curSelectedProjectNode.classList.remove("selected");
+    curSelectedProjectNode && curSelectedProjectNode.classList.remove("selected");
     const newSelectedProjectNode = document.querySelector(`.project[data-id="${id}"]`);
     newSelectedProjectNode.classList.add("selected");
 
-    projectTitleHeaderNode.innerText = title;
+    setTitle(title);
   };
 
   const addTodo = (id, title, dueDate, priority, done, insertPosition = newTodoNode) => {
@@ -116,7 +125,14 @@ export default (() => {
 
   const removeTodo = (id) => {
     const todoToBeRemoved = document.querySelector(`.todo[data-id="${id}"]`);
-    todoToBeRemoved.remove();
+    todoToBeRemoved && todoToBeRemoved.remove();
+  };
+
+  const clearTodoList = () => {
+    const list = Array.from(todoListNode.childNodes);
+    list.forEach((node) => {
+      node.classList?.contains("new-todo") || node.remove();
+    });
   };
 
   const updateTodo = (id, title, dueDate, priority, done) => {
@@ -125,10 +141,8 @@ export default (() => {
     addTodo(id, title, dueDate, priority, done, siblingNode);
   };
 
-  const toggleEditMode = () => appWindowNode.classList.toggle("edit-active");
-
-  const editTodo = (title, dueDate, priority, desc) => {
-    toggleEditMode();
+  const startEditTodo = (title, dueDate, priority, desc) => {
+    appWindowNode.classList.add("edit-active");
     editTodoTitleNode.value = title;
     const dateValue = dueDate.toISOString().slice(0, -1);
     editTodoDueDateNode.value = dateValue;
@@ -136,5 +150,29 @@ export default (() => {
     editTodoDescNode.value = desc;
   };
 
-  return { addProject, removeProject, updateProject, selectProject, addTodo, removeTodo, updateTodo, editTodo };
+  const finishEditTodo = () => {
+    appWindowNode.classList.remove("edit-active");
+    editTodoFormNode.reset();
+  };
+
+  const toggleTodoDone = (id) => {
+    const todo = document.querySelector(`.todo[data-id="${id}"]`);
+    todo.classList.toggle("done");
+  };
+
+  return {
+    addProject,
+    removeProject,
+    updateProject,
+    updateProjectTodoCount,
+    setTitle,
+    selectProject,
+    addTodo,
+    removeTodo,
+    clearTodoList,
+    updateTodo,
+    startEditTodo,
+    finishEditTodo,
+    toggleTodoDone,
+  };
 })();
