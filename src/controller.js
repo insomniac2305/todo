@@ -37,7 +37,7 @@ export default (() => {
     Display.clearTodoList();
     for (let i = project.getToDoList().length - 1; i >= 0; i -= 1) {
       const todo = project.getToDoList()[i];
-      Display.addTodo(todo.id, todo.title, todo.dueDate, todo.priority, todo.done);
+      Display.addTodo(todo.getID(), todo.title, todo.dueDate, todo.priority, todo.done);
     }
   };
 
@@ -86,7 +86,7 @@ export default (() => {
 
   const startEditTodo = (projectId, id) => {
     const todo = findTodoById(projectId, id);
-    Display.startEditTodo(todo.title, todo.dueDate, todo.priority, todo.description);
+    Display.startEditTodo(id, todo.title, todo.dueDate, todo.priority, todo.description);
   };
 
   const finishEditTodo = (projectId, id, title, description, dueDate, priority) => {

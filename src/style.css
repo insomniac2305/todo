@@ -21,6 +21,9 @@
 
 .project-title {
   font-size: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .header > .project-title {
@@ -67,12 +70,12 @@ body,
 }
 
 #app-window {
-  grid-template-columns: 300px 1fr 0fr;  
+  grid-template-columns: 300px 1fr 0fr;
   transition: 0.3s ease-out;
 }
 
 #app-window.edit-active {
-  grid-template-columns: 0px 1fr 1fr;  
+  grid-template-columns: 0px 1fr 1fr;
 }
 
 .sidebar,
@@ -126,7 +129,7 @@ body,
   font-weight: bold;
 }
 
-.header>.project-title {
+.header > .project-title {
   padding-left: 10px;
 }
 
@@ -174,17 +177,17 @@ form#edit-todo {
   padding: 10px;
 }
 
-form#edit-todo>label {
+form#edit-todo > label {
   align-self: flex-end;
 }
 
-form#edit-todo>input,
-form#edit-todo>select,
-form#edit-todo>textarea {
-  padding: 5px;  
+form#edit-todo > input,
+form#edit-todo > select,
+form#edit-todo > textarea {
+  padding: 5px;
 }
 
-form#edit-todo>textarea {
+form#edit-todo > textarea {
   resize: none;
 }
 
@@ -199,9 +202,9 @@ form#edit-todo>textarea {
 }
 
 .project.selected,
-form#edit-todo>input:focus,
-form#edit-todo>select:focus, 
-form#edit-todo>textarea:focus {
+form#edit-todo > input:focus,
+form#edit-todo > select:focus,
+form#edit-todo > textarea:focus {
   outline: 2px solid var(--main-color);
 }
 
@@ -212,20 +215,11 @@ form#edit-todo>textarea:focus {
 
 .project-icon {
   border-radius: 50%;
-  background-color: #f35f4c;
-}
-
-.project:nth-child(2) > .project-icon {
-  background-color: #4c94f3;
-}
-
-.project:nth-child(3) > .project-icon {
-  background-color: #f3ab4c;
 }
 
 .todo-count {
   background-color: #ddd;
-  columns: #3d3d3d;
+  color: #3d3d3d;
   text-align: center;
   border-radius: 10px;
 }
@@ -265,9 +259,9 @@ textarea {
   background: none;
 }
 
-form#edit-todo>input,
-form#edit-todo>select,
-form#edit-todo>textarea {
+form#edit-todo > input,
+form#edit-todo > select,
+form#edit-todo > textarea {
   border-radius: 5px;
   border: 1px solid #dcdee2;
 }
@@ -282,11 +276,11 @@ form#edit-todo>textarea {
   border-left: 1px solid rgba(150, 150, 150, 0.5);
 }
 
-form#edit-todo>label {
+form#edit-todo > label {
   font-weight: bold;
 }
 
-form#edit-todo>button {
+form#edit-todo > button {
   font-weight: bold;
   white-space: nowrap;
   padding: 10px 20px;
@@ -297,14 +291,14 @@ form#edit-todo>button {
   box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.25);
 }
 
-form#edit-todo>button:hover {
+form#edit-todo > button:hover {
   background-color: var(--main-color-hover);
   cursor: pointer;
 }
 
-form#edit-todo>button:active,
-form#edit-todo>button:focus {
-  background-color: var(--main-color-active);  
+form#edit-todo > button:active,
+form#edit-todo > button:focus {
+  background-color: var(--main-color-active);
   outline: none;
 }
 
@@ -312,7 +306,8 @@ form#edit-todo>button:focus {
 .new-project:hover,
 .todo:hover,
 .new-todo:hover,
-.new-todo > input:hover {
+.new-todo > input:hover,
+.new-todo > button:hover {
   background-color: #ececec;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -326,29 +321,37 @@ form#edit-todo>button:focus {
   cursor: text;
 }
 
+.new-todo-btn > span {
+  transition: color 0.2s ease;
+}
+
+.new-todo-btn:hover > span {
+  color: var(--main-color);
+}
+
 .todo-edit-btn:hover,
 .todo-delete-btn:hover {
   background-color: var(--main-color);
   cursor: pointer;
 }
 
-.todo>button.todo-done-btn>span::after {
+.todo > button.todo-done-btn > span::after {
   content: "circle";
 }
 
-.todo>button.todo-done-btn>span:hover::after {
+.todo > button.todo-done-btn > span:hover::after {
   cursor: pointer;
   content: "check_circle";
 }
 
-.todo.done>button.todo-done-btn>span::after {
+.todo.done > button.todo-done-btn > span::after {
   content: "check_circle";
   font-variation-settings: "FILL" 1;
   transition: 0.1s ease-in;
 }
 
-.todo.done>.todo-title,
-.todo.done>.todo-date {
+.todo.done > .todo-title,
+.todo.done > .todo-date {
   text-decoration: line-through;
 }
 
@@ -356,7 +359,7 @@ form#edit-todo>button:focus {
   opacity: 0.5;
 }
 
-.todo.done>button.todo-edit-btn,
-.todo.done>button.todo-delete-btn {
+.todo.done > button.todo-edit-btn,
+.todo.done > button.todo-delete-btn {
   display: none;
 }
