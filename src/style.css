@@ -154,6 +154,10 @@ body,
   padding: 5px;
 }
 
+.date:empty {
+  padding: 0;
+}
+
 .new-todo > input {
   align-self: stretch;
 }
