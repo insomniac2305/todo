@@ -6,6 +6,7 @@ export default (() => {
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
   const editTodoFormNode = document.querySelector("#edit-todo");
+  const editTodoIdNode = document.querySelector("#todo-id");
   const editTodoTitleNode = document.querySelector("#title");
   const editTodoDueDateNode = document.querySelector("#due");
   const selectTodoPrioNode = document.querySelector("#prio");
@@ -100,13 +101,15 @@ export default (() => {
     todoNode.appendChild(todoTitleNode);
 
     const todoDateWrap = createElemWithParam("div", "todo-date");
-    const todoDateNode = createElemWithParam("div", "date", dueDate.toLocaleDateString(undefined, DATEOPTIONS));
+    const dateFormatted = dueDate instanceof Date ? dueDate.toLocaleDateString(undefined, DATEOPTIONS) : "";
+    const todoDateNode = createElemWithParam("div", "date", dateFormatted);
     todoDateWrap.appendChild(todoDateNode);
     todoNode.appendChild(todoDateWrap);
 
     const todoPrioWrap = createElemWithParam("div", "todo-priority");
-    const todoPrioIconNode = createElemWithParam("span", "material-symbols-rounded", PRIORITIES[priority].icon);
-    todoPrioIconNode.classList.add(PRIORITIES[priority].class);
+    const prioIcon = Object.prototype.hasOwnProperty.call(PRIORITIES, priority) ? PRIORITIES[priority].icon : "";
+    const todoPrioIconNode = createElemWithParam("span", "material-symbols-rounded", prioIcon);
+    prioIcon !== "" && todoPrioIconNode.classList.add(PRIORITIES[priority].class);
     todoPrioWrap.appendChild(todoPrioIconNode);
     todoNode.appendChild(todoPrioWrap);
 
@@ -141,10 +144,11 @@ export default (() => {
     addTodo(id, title, dueDate, priority, done, siblingNode);
   };
 
-  const startEditTodo = (title, dueDate, priority, desc) => {
+  const startEditTodo = (id, title, dueDate, priority, desc) => {
     appWindowNode.classList.add("edit-active");
+    editTodoIdNode.value = id;
     editTodoTitleNode.value = title;
-    const dateValue = dueDate.toISOString().slice(0, -1);
+    const dateValue = dueDate instanceof Date ? dueDate.toISOString().slice(0, -1) : "";
     editTodoDueDateNode.value = dateValue;
     selectTodoPrioNode.value = priority;
     editTodoDescNode.value = desc;
