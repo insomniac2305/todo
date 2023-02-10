@@ -109,6 +109,7 @@ form#new-project {
 
 .project,
 .new-project {
+  text-align: start;
   align-items: center;
   grid-template-columns: auto 1fr auto;
   column-gap: 10px;
@@ -385,7 +386,7 @@ form#new-project > button:focus {
 /* Modal */
 
 .modal {
-  /* display: none;  */
+  display: none; 
   position: fixed;
   z-index: 1;
   left: 0;
