@@ -12,14 +12,16 @@ Controller.addTodo(1, "Taxes", "Including crypto this year", new Date("2023-06-0
 Controller.addTodo(1, "MFA Security", "Add MFA to Home Assistant", new Date("2023-02-22"), "low");
 Controller.addTodo(1, "Garbage", "Take out paper", new Date("2023-02-10"), "high");
 
-let selectedProjectId;
-
 const newProjectBtn = document.querySelector(".new-project");
-const newProjectModal = document.querySelector(".modal#new-project-prompt");
-const submitNewProjectBtn = document.querySelector("#submit-new-project-btn");
-const newProjectColorNode = document.querySelector("#color");
-const newProjectIconNode = document.querySelector("#icon");
-const newProjectTitleNode = document.querySelector("#project-title");
+const newProjectModal = document.querySelector(".modal#project-prompt");
+const submitNewProjectBtn = document.querySelector("#submit-project-btn");
+const editProjectIdNode = document.querySelector("#project-id");
+const editProjectColorNode = document.querySelector("#color");
+const editProjectIconNode = document.querySelector("#icon");
+const editProjectTitleNode = document.querySelector("#project-title");
+
+const editProjectBtn = document.querySelector(".project-edit-btn");
+const deleteProjectBtn = document.querySelector(".project-delete-btn");
 
 const addTodoNode = document.querySelector(".new-todo");
 const newTodoInput = addTodoNode.querySelector("input#todo-title");
@@ -42,17 +44,17 @@ function addListenersToSelection(selector, eventType, listener) {
 
 function toggleTodoDone(e) {
   const selectedTodoId = parseInt(e.target.closest(".todo").dataset.id, 10);
-  Controller.toggleTodoDone(selectedProjectId, selectedTodoId);
+  Controller.toggleTodoDone(Controller.getSelectedProjectId(), selectedTodoId);
 }
 
 function editTodo(e) {
   const selectedTodoId = parseInt(e.target.closest(".todo").dataset.id, 10);
-  Controller.startEditTodo(selectedProjectId, selectedTodoId);
+  Controller.startEditTodo(Controller.getSelectedProjectId(), selectedTodoId);
 }
 
 function removeTodo(e) {
   const selectedTodoId = parseInt(e.target.closest(".todo").dataset.id, 10);
-  Controller.removeTodo(selectedProjectId, selectedTodoId);
+  Controller.removeTodo(Controller.getSelectedProjectId(), selectedTodoId);
 }
 
 function addTodoListeners() {
@@ -61,30 +63,59 @@ function addTodoListeners() {
   addListenersToSelection(".todo-delete-btn", "click", removeTodo);
 }
 
-newProjectBtn.addEventListener("click", Controller.startNewProject);
-newProjectModal.addEventListener("click", (e) => {
-  if (e.target === newProjectModal) {
-    Controller.finishNewProject();
-  }
-});
-
 function selectProject(e) {
-  selectedProjectId = parseInt(e.target.closest(".project").dataset.id, 10);
+  const selectedProjectId = parseInt(e.target.closest(".project").dataset.id, 10);
   Controller.selectProject(selectedProjectId);
   addTodoListeners();
 }
 
 function addProject(e) {
   e.preventDefault();
-  const title = newProjectTitleNode.value;
-  const icon = newProjectIconNode.value;
-  const color = newProjectColorNode.value;
+  const title = editProjectTitleNode.value;
+  const icon = editProjectIconNode.value;
+  const color = editProjectColorNode.value;
   Controller.addProject(title, icon, color);
   Controller.finishNewProject();
   addListenersToSelection(".project", "click", selectProject);
 }
 
-submitNewProjectBtn.addEventListener("click", addProject);
+function updateProject(e) {
+  e.preventDefault();
+  const id = parseInt(editProjectIdNode.value, 10);
+  const title = editProjectTitleNode.value;
+  const icon = editProjectIconNode.value;
+  const color = editProjectColorNode.value;
+  Controller.updateProject(id, title, icon, color);
+  Controller.finishNewProject();
+  addListenersToSelection(".project", "click", selectProject);
+}
+
+function newProject() {
+  submitNewProjectBtn.removeEventListener("click", updateProject);
+  submitNewProjectBtn.addEventListener("click", addProject);
+  Controller.startNewProject();
+}
+
+newProjectBtn.addEventListener("click", newProject);
+newProjectModal.addEventListener("click", (e) => {
+  if (e.target === newProjectModal) {
+    Controller.finishNewProject();
+  }
+});
+
+function editProject() {
+  submitNewProjectBtn.removeEventListener("click", addProject);
+  submitNewProjectBtn.addEventListener("click", updateProject);
+  Controller.startEditProject(Controller.getSelectedProjectId());
+}
+
+editProjectBtn.addEventListener("click", editProject);
+
+function removeProject() {
+  Controller.removeProject(Controller.getSelectedProjectId());
+}
+
+deleteProjectBtn.addEventListener("click", removeProject);
 
 function submitEditTodo(e) {
   e.preventDefault();
@@ -94,15 +125,18 @@ function submitEditTodo(e) {
   const date = dateValue !== "" ? new Date(dateValue) : "";
   const prio = selectTodoPrioNode.value;
   const desc = editTodoDescNode.value;
-  Controller.finishEditTodo(selectedProjectId, id, title, desc, date, prio);
+  Controller.finishEditTodo(Controller.getSelectedProjectId(), id, title, desc, date, prio);
   addTodoListeners();
 }
 
 submitEditBtn.addEventListener("click", submitEditTodo);
 
 function addTodo(e) {
-  if ((e.type === "keydown" && e.code === "Enter") || e.type === "click") {
-    Controller.addTodo(selectedProjectId, newTodoInput.value, "", null, "");
+  if (
+    Controller.getSelectedProjectId() !== undefined &&
+    ((e.type === "keydown" && e.code === "Enter") || e.type === "click")
+  ) {
+    Controller.addTodo(Controller.getSelectedProjectId(), newTodoInput.value, "", null, "");
     newTodoInput.value = "";
     addTodoListeners();
   }
