@@ -19,5 +19,16 @@ export default (title, icon, color) => {
 
   const getToDoList = () => toDoList;
 
-  return { title, icon, color, getID, addTodo, removeToDo, getToDoList };
+  const calcFontColor = (bgColor, lightColor, darkColor) => {
+    const fontColor = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
+    const r = parseInt(fontColor.substring(0, 2), 16);
+    const g = parseInt(fontColor.substring(2, 4), 16);
+    const b = parseInt(fontColor.substring(4, 6), 16);
+    return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186) ?
+      darkColor : lightColor;
+  }
+
+  const getFontColor = () => calcFontColor(color, "#FFFFFF", "#000000");
+
+  return { title, icon, color, getFontColor, getID, addTodo, removeToDo, getToDoList };
 };

@@ -42,12 +42,13 @@ export default (() => {
     return element;
   };
 
-  const addProject = (id, title, icon, color, todoCount, insertPosition = newProjectNode) => {
+  const addProject = (id, title, icon, bgColor, fontColor, todoCount, insertPosition = newProjectNode) => {
     const projectNode = createElemWithParam("div", "project");
     projectNode.dataset.id = id;
     const projectIconWrap = createElemWithParam("div", "project-icon");
-    projectIconWrap.style.backgroundColor = color;
+    projectIconWrap.style.backgroundColor = bgColor;
     const projectIconNode = createElemWithParam("span", "material-symbols-rounded", icon);
+    projectIconNode.style.color = fontColor;
     projectIconWrap.appendChild(projectIconNode);
     projectNode.appendChild(projectIconWrap);
 
