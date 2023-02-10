@@ -4,12 +4,26 @@ import Todo from "./todo";
 
 export default (() => {
   const projects = [];
+  let selectedProjectId;
 
   const findProjectById = (id) => projects.find((project) => project.getID() === id);
   const findTodoById = (projectId, id) =>
     findProjectById(projectId)
       .getToDoList()
       .find((todo) => todo.getID() === id);
+
+  const selectProject = (id) => {
+    const project = findProjectById(id);
+    selectedProjectId = id;
+    Display.selectProject(id, project.title);
+    Display.clearTodoList();
+    for (let i = project.getToDoList().length - 1; i >= 0; i -= 1) {
+      const todo = project.getToDoList()[i];
+      Display.addTodo(todo.getID(), todo.title, todo.dueDate, todo.priority, todo.done);
+    }
+  };
+
+  const getSelectedProjectId = () => selectedProjectId;
 
   const addProject = (title, icon, color) => {
     const newProject = Project(title, icon, color);
@@ -22,27 +36,22 @@ export default (() => {
       newProject.getFontColor(),
       newProject.getToDoList().length
     );
+    selectProject(newProject.getID());
   };
 
   const startNewProject = () => Display.startNewProject();
   const finishNewProject = () => Display.finishNewProject();
+  const startEditProject = (id) => {
+    const project = findProjectById(id);
+    Display.startEditProject(id, project.title, project.icon, project.color);
+  };
 
   const updateProject = (id, title, icon, color) => {
     const project = findProjectById(id);
     project.title = title;
     project.icon = icon;
     project.color = color;
-    Display.updateProject(id, title, icon, color, project.getToDoList().length);
-  };
-
-  const selectProject = (id) => {
-    const project = findProjectById(id);
-    Display.selectProject(project.getID(), project.title);
-    Display.clearTodoList();
-    for (let i = project.getToDoList().length - 1; i >= 0; i -= 1) {
-      const todo = project.getToDoList()[i];
-      Display.addTodo(todo.getID(), todo.title, todo.dueDate, todo.priority, todo.done);
-    }
+    Display.updateProject(id, title, icon, color, project.getFontColor(), project.getToDoList().length);
   };
 
   const removeProject = (id) => {
@@ -51,7 +60,8 @@ export default (() => {
     Display.removeProject(id);
     if (projects.length === 0) {
       Display.clearTodoList();
-      Display.setTitle("");
+      Display.clearHeader();
+      selectedProjectId = undefined;
     } else {
       selectProject(projects[0].getID());
     }
@@ -114,9 +124,11 @@ export default (() => {
     addProject,
     startNewProject,
     finishNewProject,
+    startEditProject,
     updateProject,
     removeProject,
     selectProject,
+    getSelectedProjectId,
     addTodo,
     updateTodo,
     removeTodo,

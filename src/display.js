@@ -2,9 +2,16 @@ export default (() => {
   const appWindowNode = document.getElementById("app-window");
   const projectsNode = document.querySelector(".projects");
   const newProjectNode = document.querySelector(".new-project");
-  const newProjectModal = document.querySelector(".modal#new-project-prompt");
-  const newProjectForm = document.querySelector("#new-project");
+  const editProjectModal = document.querySelector(".modal#project-prompt");
+  const editProjectForm = document.querySelector("#edit-project");
+  const editProjectHeader = document.querySelector(".modal#project-prompt .form-heading");
+  const editProjectIdNode = document.querySelector("#project-id");
+  const editProjectColorNode = document.querySelector("#color");
+  const editProjectIconNode = document.querySelector("#icon");
+  const editProjectTitleNode = document.querySelector("#project-title");
   const projectTitleHeaderNode = document.querySelector(".header>.project-title");
+  const editProjectBtn = document.querySelector(".project-edit-btn");
+  const deleteProjectBtn = document.querySelector(".project-delete-btn");
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
   const editTodoFormNode = document.querySelector("#edit-todo");
@@ -62,32 +69,27 @@ export default (() => {
   };
 
   const startNewProject = () => {
-    newProjectModal.style.display = "block";
+    editProjectHeader.innerText = "New Project";
+    editProjectModal.style.display = "block";
   };
 
   const finishNewProject = () => {
-    newProjectModal.style.display = "none";
-    newProjectForm.reset();
-  }
+    editProjectModal.style.display = "none";
+    editProjectForm.reset();
+  };
+
+  const startEditProject = (id, title, icon, color) => {
+    editProjectHeader.innerText = "Edit Project";
+    editProjectModal.style.display = "block";
+    editProjectIdNode.value = id;
+    editProjectTitleNode.value = title;
+    editProjectIconNode.value = icon;
+    editProjectColorNode.value = color;
+  };
 
   const removeProject = (id) => {
     const projectToBeRemoved = document.querySelector(`.project[data-id="${id}"]`);
     projectToBeRemoved.remove();
-  };
-
-  const updateProject = (id, title, icon, color, todoCount) => {
-    const siblingNode = document.querySelector(`.project[data-id="${id}"]`).nextElementSibling ?? newProjectNode;
-    removeProject(id);
-    addProject(id, title, icon, color, todoCount, siblingNode);
-  };
-
-  const updateProjectTodoCount = (id, count) => {
-    const countNode = document.querySelector(`.project[data-id="${id}"]>.todo-count`);
-    countNode.innerText = count;
-  };
-
-  const setTitle = (title) => {
-    projectTitleHeaderNode.innerText = title;
   };
 
   const selectProject = (id, title) => {
@@ -96,7 +98,27 @@ export default (() => {
     const newSelectedProjectNode = document.querySelector(`.project[data-id="${id}"]`);
     newSelectedProjectNode.classList.add("selected");
 
-    setTitle(title);
+    projectTitleHeaderNode.innerText = title;
+    editProjectBtn.hidden = false;
+    deleteProjectBtn.hidden = false;
+  };
+
+  const updateProject = (id, title, icon, bgColor, fontColor, todoCount) => {
+    const siblingNode = document.querySelector(`.project[data-id="${id}"]`).nextElementSibling ?? newProjectNode;
+    removeProject(id);
+    addProject(id, title, icon, bgColor, fontColor, todoCount, siblingNode);
+    selectProject(id, title);
+  };
+
+  const updateProjectTodoCount = (id, count) => {
+    const countNode = document.querySelector(`.project[data-id="${id}"]>.todo-count`);
+    countNode.innerText = count;
+  };
+
+  const clearHeader = () => {
+    projectTitleHeaderNode.innerText = "";
+    editProjectBtn.hidden = true;
+    deleteProjectBtn.hidden = true;
   };
 
   const addTodo = (id, title, dueDate, priority, done, insertPosition = newTodoNode) => {
@@ -180,10 +202,11 @@ export default (() => {
     addProject,
     startNewProject,
     finishNewProject,
+    startEditProject,
     removeProject,
     updateProject,
     updateProjectTodoCount,
-    setTitle,
+    clearHeader,
     selectProject,
     addTodo,
     removeTodo,

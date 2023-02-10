@@ -26,7 +26,9 @@
   text-overflow: ellipsis;
 }
 
-.header > .project-title {
+.header > .project-title,
+.header > .project-edit-btn > span,
+.header > .project-delete-btn > span{
   font-size: 32px;
 }
 
@@ -67,7 +69,7 @@ body,
 .new-todo,
 .edit-area,
 form#edit-todo,
-form#new-project {
+form#edit-project {
   display: grid;
 }
 
@@ -127,13 +129,10 @@ form#new-project {
 
 .header {
   align-items: center;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr auto auto;
   column-gap: 10px;
   font-weight: bold;
-}
-
-.header > .project-title {
-  padding-left: 10px;
+  padding: 0 15px 0 15px;
 }
 
 .todo-list {
@@ -169,7 +168,9 @@ form#new-project {
 }
 
 .todo-edit-btn,
-.todo-delete-btn {
+.todo-delete-btn,
+.project-edit-btn,
+.project-delete-btn {
   padding: 5px;
 }
 
@@ -179,7 +180,7 @@ form#edit-todo {
   padding: 10px;
 }
 
-form#new-project {
+form#edit-project {
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 30px 50px);
   padding: 10px;
@@ -187,7 +188,7 @@ form#new-project {
 }
 
 form#edit-todo > label,
-form#new-project > label {
+form#edit-project > label {
   align-self: flex-end;
 }
 
@@ -282,7 +283,9 @@ form textarea {
 }
 
 .todo-edit-btn,
-.todo-delete-btn {
+.todo-delete-btn,
+.project-edit-btn,
+.project-delete-btn {
   border-radius: 5px;
   transition: background-color 0.2s ease;
 }
@@ -296,7 +299,7 @@ label {
 }
 
 form#edit-todo > button,
-form#new-project > button {
+form#edit-project > button {
   font-weight: bold;
   white-space: nowrap;
   padding: 10px 20px;
@@ -308,15 +311,15 @@ form#new-project > button {
 }
 
 form#edit-todo > button:hover,
-form#new-project > button:hover {
+form#edit-project > button:hover {
   background-color: var(--main-color-hover);
   cursor: pointer;
 }
 
 form#edit-todo > button:active,
 form#edit-todo > button:focus,
-form#new-project > button:active,
-form#new-project > button:focus {
+form#edit-project > button:active,
+form#edit-project > button:focus {
   background-color: var(--main-color-active);
   outline: none;
 }
@@ -326,7 +329,9 @@ form#new-project > button:focus {
 .todo:hover,
 .new-todo:hover,
 .new-todo > input:hover,
-.new-todo > button:hover {
+.new-todo > button:hover,
+.project-edit-btn:hover,
+.project-delete-btn:hover {
   background-color: #ececec;
   cursor: pointer;
   transition: background-color 0.2s ease;
