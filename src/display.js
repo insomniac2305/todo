@@ -2,6 +2,8 @@ export default (() => {
   const appWindowNode = document.getElementById("app-window");
   const projectsNode = document.querySelector(".projects");
   const newProjectNode = document.querySelector(".new-project");
+  const newProjectModal = document.querySelector(".modal#new-project-prompt");
+  const newProjectForm = document.querySelector("#new-project");
   const projectTitleHeaderNode = document.querySelector(".header>.project-title");
   const todoListNode = document.querySelector(".todo-list");
   const newTodoNode = document.querySelector(".new-todo");
@@ -57,6 +59,15 @@ export default (() => {
 
     projectsNode.insertBefore(projectNode, insertPosition);
   };
+
+  const startNewProject = () => {
+    newProjectModal.style.display = "block";
+  };
+
+  const finishNewProject = () => {
+    newProjectModal.style.display = "none";
+    newProjectForm.reset();
+  }
 
   const removeProject = (id) => {
     const projectToBeRemoved = document.querySelector(`.project[data-id="${id}"]`);
@@ -166,6 +177,8 @@ export default (() => {
 
   return {
     addProject,
+    startNewProject,
+    finishNewProject,
     removeProject,
     updateProject,
     updateProjectTodoCount,

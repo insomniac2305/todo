@@ -14,9 +14,16 @@ Controller.addTodo(1, "Garbage", "Take out paper", new Date("2023-02-10"), "high
 
 let selectedProjectId;
 
+const newProjectBtn = document.querySelector(".new-project");
+const newProjectModal = document.querySelector(".modal#new-project-prompt");
+const submitNewProjectBtn = document.querySelector("#submit-new-project-btn");
+const newProjectColorNode = document.querySelector("#color");
+const newProjectIconNode = document.querySelector("#icon");
+const newProjectTitleNode = document.querySelector("#project-title");
+
 const addTodoNode = document.querySelector(".new-todo");
 const newTodoInput = addTodoNode.querySelector("input#todo-title");
-const addTodoBtn = document.querySelector(".new-todo-btn");
+const newTodoBtn = document.querySelector(".new-todo-btn");
 
 const editTodoIdNode = document.querySelector("#todo-id");
 const editTodoTitleNode = document.querySelector("#title");
@@ -54,11 +61,30 @@ function addTodoListeners() {
   addListenersToSelection(".todo-delete-btn", "click", removeTodo);
 }
 
+newProjectBtn.addEventListener("click", Controller.startNewProject);
+newProjectModal.addEventListener("click", (e) => {
+  if (e.target === newProjectModal) {
+    Controller.finishNewProject();
+  }
+});
+
 function selectProject(e) {
   selectedProjectId = parseInt(e.target.closest(".project").dataset.id, 10);
   Controller.selectProject(selectedProjectId);
   addTodoListeners();
 }
+
+function addProject(e) {
+  e.preventDefault();
+  const title = newProjectTitleNode.value;
+  const icon = newProjectIconNode.value;
+  const color = newProjectColorNode.value;
+  Controller.addProject(title, icon, color);
+  Controller.finishNewProject();
+  addListenersToSelection(".project", "click", selectProject);
+}
+
+submitNewProjectBtn.addEventListener("click", addProject);
 
 function submitEditTodo(e) {
   e.preventDefault();
@@ -83,7 +109,7 @@ function addTodo(e) {
 }
 
 addTodoNode.addEventListener("keydown", addTodo);
-addTodoBtn.addEventListener("click", addTodo);
+newTodoBtn.addEventListener("click", addTodo);
 
 addListenersToSelection(".project", "click", selectProject);
 document.querySelector(".project").click();

@@ -23,6 +23,9 @@ export default (() => {
     );
   };
 
+  const startNewProject = () => Display.startNewProject();
+  const finishNewProject = () => Display.finishNewProject();
+
   const updateProject = (id, title, icon, color) => {
     const project = findProjectById(id);
     project.title = title;
@@ -108,6 +111,8 @@ export default (() => {
 
   return {
     addProject,
+    startNewProject,
+    finishNewProject,
     updateProject,
     removeProject,
     selectProject,
