@@ -19,6 +19,7 @@ export default (() => {
       newProject.title,
       newProject.icon,
       newProject.color,
+      newProject.getFontColor(),
       newProject.getToDoList().length
     );
   };
