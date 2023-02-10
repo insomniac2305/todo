@@ -23,7 +23,7 @@
       <div class="header">
         <div class="project-title">General</div>
       </div>
-      <div class="todo-list">        
+      <div class="todo-list">
         <div class="new-todo">
           <button type="button" class="new-todo-btn"><span class="material-symbols-rounded">add</span></button>
           <input type="text" name="todo-title" id="todo-title" placeholder="What to do?">
@@ -49,6 +49,20 @@
           <label for="desc">Description</label>
           <textarea id="desc" name="desc"></textarea>
           <button id="submit-edit-btn" type="submit">Save changes</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="new-project-prompt">
+      <div class="modal-content">
+        <h2 class="form-heading">New Project</h2>
+        <form action="." id="new-project">
+          <label for="color">Color</label>
+          <input type="color" id="color">
+          <label for="icon">Icon</label>
+          <input type="text" id="icon">
+          <label for="project-title">Title</label>
+          <input type="text" id="project-title">
+          <button id="submit-new-project-btn" type="submit">Submit</button>
         </form>
       </div>
     </div>
