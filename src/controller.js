@@ -32,7 +32,7 @@ export default (() => {
       newProject.getID(),
       newProject.title,
       newProject.icon,
-      newProject.color,
+      newProject.getColor(),
       newProject.getFontColor(),
       newProject.getToDoList().length
     );
@@ -43,14 +43,14 @@ export default (() => {
   const finishNewProject = () => Display.finishNewProject();
   const startEditProject = (id) => {
     const project = findProjectById(id);
-    Display.startEditProject(id, project.title, project.icon, project.color);
+    Display.startEditProject(id, project.title, project.icon, project.getColor());
   };
 
   const updateProject = (id, title, icon, color) => {
     const project = findProjectById(id);
     project.title = title;
     project.icon = icon;
-    project.color = color;
+    project.setColor(color);
     Display.updateProject(id, title, icon, color, project.getFontColor(), project.getToDoList().length);
   };
 
