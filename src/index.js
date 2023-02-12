@@ -5,12 +5,7 @@ import Controller from "./controller";
 const imgLogo = document.getElementById("logo");
 imgLogo.src = Logo;
 
-Controller.addProject("General", "checklist", "#f35f4c");
-Controller.addProject("Vacation", "flight", "#4c94f3");
-Controller.addProject("Shopping", "shopping_cart", "#f3ab4c");
-Controller.addTodo(1, "Taxes", "Including crypto this year", new Date("2023-06-01"), "med");
-Controller.addTodo(1, "MFA Security", "Add MFA to Home Assistant", new Date("2023-02-22"), "low");
-Controller.addTodo(1, "Garbage", "Take out paper", new Date("2023-02-10"), "high");
+Controller.loadData();
 
 const newProjectBtn = document.querySelector(".new-project");
 const newProjectModal = document.querySelector(".modal#project-prompt");
