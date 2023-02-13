@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+  <div id="app-window">
+    <div class="sidebar">
+      <div class="logo-section"><img id="logo" alt="Logo"></div>
+      <div class="projects">
+        <button class="new-project new-project-btn" type="button">
+          <span class="material-symbols-rounded">add</span>
+          <p>New</p>
+        </button>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <div class="project-title">General</div>
+        <button class="project-edit-btn"><span class="material-symbols-rounded">edit</span></button>
+        <button class="project-delete-btn"><span class="material-symbols-rounded">delete</span></button>
+      </div>
+      <div class="todo-list">
+        <div class="new-todo">
+          <button type="button" class="new-todo-btn"><span class="material-symbols-rounded">add</span></button>
+          <input type="text" name="todo-title" id="todo-title" placeholder="What to do?">
+        </div>
+      </div>
+    </div>
+    <div class="edit-area">
+      <div class="header"></div>
+      <div class="edit-todo">
+        <form action="." id="edit-todo">
+          <input type="hidden" id="todo-id" name="id">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text">
+          <label for="due">Due Date</label>
+          <input id="due" name="due" type="datetime-local">
+          <label for="prio">Priority</label>
+          <select id="prio" name="prio">
+            <option value="none"></option>
+            <option value="low">Low</option>
+            <option value="med">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <label for="desc">Description</label>
+          <textarea id="desc" name="desc"></textarea>
+          <button id="submit-edit-btn" type="submit">Save changes</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="project-prompt">
+      <div class="modal-content">
+        <h2 class="form-heading">New Project</h2>
+        <form action="." id="edit-project">
+          <input type="hidden" id="project-id" name="id">
+          <label for="color">Color</label>
+          <input type="color" id="color" value="#000000">
+          <label for="icon">Icon</label>
+          <input type="text" id="icon">
+          <label for="project-title">Title</label>
+          <input type="text" id="project-title">
+          <button id="submit-project-btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
